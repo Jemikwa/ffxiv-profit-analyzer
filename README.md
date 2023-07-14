@@ -1,0 +1,1 @@
+# ffxiv-profit-analyzer
