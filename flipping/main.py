@@ -49,6 +49,7 @@ def parsequery(http):
             if ((index - 1 % 100) != 0) and ((index - 1) < len(itemlist)):
                 print(f"{index}, {len(itemlist)}")
                 querystring += ","
+        # Every 100 items, do an API query and update itemlist dict
         else:
             dc_api_req = getuniversalisdata(http, querystring, dc)
             serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
@@ -57,6 +58,7 @@ def parsequery(http):
             querystring = ""
             index += 1
 
+    # Final API query and itemlist update
     dc_api_req = getuniversalisdata(http, querystring, dc)
     serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
     updateitemlist(dc_api_req,"dc")
@@ -64,19 +66,22 @@ def parsequery(http):
 
 # API query to Universalis
 def getuniversalisdata(http, querystring, servdc):
-    # servdc can be a server ID or DC name (or region name!)
-    # Only retrieves 1 listing to reduce iterations
+    # servdc can be a server ID, DC name, or region name
+    # Only retrieves 1 for-sale listing to reduce iterations
     return http.request(
         "GET",
         f"{itemApi}/{servdc}/{querystring}?listings=1"
     )
 
+# Processes Universalis API output and updates itemlist dict with the new attributes
 def updateitemlist(response, scope):
+    # If query was datacenter scoped, update buy listing information
     if scope == "dc":
         for itemid, item in response.json()['items'].items():
             for listing in item['listings']:
                 itemlist[itemid].buy = listing['pricePerUnit']
                 itemlist[itemid].buyserver = listing['worldName']
+    # If query was server scoped, update sell listing information
     else:
         if scope == "server":
             for itemid, item in response.json()['items'].items():
