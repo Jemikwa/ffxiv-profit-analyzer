@@ -1,6 +1,6 @@
 # ffxiv-profit-analyzer
 
-Tools to assess profits of various input items. Uses data from https://universalis.app's API. 
+Tools to assess profits of various input items. Uses data from https://universalis.app API. 
 
 ### Flipping
 Buy on one server, sell on your home server. Provides % profit for determining ideal margins on your own. 
