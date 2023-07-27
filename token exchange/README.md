@@ -1,4 +1,4 @@
-Token Exchanges
+# Token Exchanges
 
 Used to calculate how much gil per token you can get for vendor items.
 Any token type is supported, so long as the format of the csv meets the requirements:
@@ -6,9 +6,6 @@ Any token type is supported, so long as the format of the csv meets the requirem
 * Item ID
 * Token Type
 * Token Cost (how many tokens buying the item requires)
-* Sell Price (on your home server)
-* Gil Per Token (no values required, will be filled by the script)
-
 You could even put every item/token in a single spreadsheet. The script will handle multiple token types per item and over 100 item queries without any issue. 
 
 All files in project/inputs/ will be read and processed one at a time. For each file read, a new file will be created/updated in project/outputs/. 

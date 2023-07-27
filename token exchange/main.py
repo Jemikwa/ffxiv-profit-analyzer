@@ -7,8 +7,6 @@ import time
 
 itemApi = "https://universalis.app/api/v2/"
 mainWorldId = "73" # Adamantoise
-dc = "Aether"
-region = "North-America"
 
 # Can handle as many token types per item in a single sheet as you like.
 # Will only query each item once per sheet import, as the sell price does not depeend on how many tokens an item can be bought with
