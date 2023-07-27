@@ -17,7 +17,12 @@ Provides % profit for determining ideal margins on your own.
   * `region` = your geographic region name
 
 ## Tokens
-Convert tokens to items for selling. Token type doesn't matter in the calculator. 
+Convert tokens to items for selling. 
 
 #### Requirements:
-* Input columns: "Item Name", "Item ID"
+* Input files located in project/token exchange/inputs/
+* Input columns: "Item Name", "Item ID", "Token Type", "Token Cost"
+* Any file name is supported
+* Multiple files are supported
+* Update global variables for your server
+  * `mainWorldId` = [your server ID](https://github.com/xivapi/ffxiv-datamining/blob/master/csv/World.csv)

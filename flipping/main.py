@@ -6,7 +6,6 @@ import csv
 # Global Variables
 itemApi = "https://universalis.app/api/v2"
 mainWorldId = "73" # Adamantoise - update to your home server
-dc = "Aether"
 region = "North-America"
 # Placed at a global scope because I'm lazy
 itemlist = {}
