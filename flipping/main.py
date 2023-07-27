@@ -36,7 +36,7 @@ class FlipItem(Item):
         profitpct = '%.2f'%((profit / self.buy)*100)
         return [self.name, self.itemid, self.buy, self.buyserver, self.sell, profit, f"{profitpct}%"]
 
-def parsequery(http):
+def parsedata(http):
     querystring = ""
     index = 1
     # Processing items to query Universalis
@@ -47,7 +47,6 @@ def parsequery(http):
             index += 1
             # If not a multiple of 100 or not at the end of the list, add a comma
             if ((index - 1 % 100) != 0) and ((index - 1) < len(itemlist)):
-                print(f"{index}, {len(itemlist)}")
                 querystring += ","
         # Every 100 items, do an API query and update itemlist dict
         else:
@@ -91,19 +90,18 @@ def updateitemlist(response, scope):
 def main():
     http = urllib3.PoolManager()
     # Reads csv contents and stores in itemlist dict
-    with open('price calculator.csv', newline='') as inputcsv:
+    with open('Price Calculators.csv', newline='') as inputcsv:
         sheet = csv.DictReader(inputcsv)
         for row in sheet:
             itemlist[row['Item ID']] = FlipItem(row['Item Name'], row['Item ID'], 1, "", 1)
-        parsequery(http)
+        parsedata(http)
 
     # Writes itemlist dict entries to csv
-    with open('output.csv', 'w', newline='') as outputcsv:
+    with open('Output.csv', 'w', newline='') as outputcsv:
         sheet = csv.writer(outputcsv, delimiter=',')
         sheet.writerow(['Item Name', 'Item ID', 'Buy Price', 'Buy Server',
                       'Sell Price', 'Profit', 'Percent Profit'])
         for row in itemlist:
-            print(itemlist[row].arrayrow())
             sheet.writerow(itemlist[row].arrayrow())
 
 if __name__ == "__main__":
