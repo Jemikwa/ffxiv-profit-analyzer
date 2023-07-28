@@ -18,7 +18,7 @@ class Item:
         self.sell = sell
 
 class TokenItem(Item):    
-    def __init__(self, name:str, itemid:int, tokencostbase:int, tokentypebase:str, sell:int):
+    def __init__(self, name:str, itemid:int, tokencostbase:float, tokentypebase:str, sell:int):
         super().__init__(name, itemid, sell)
         # Defines base key pair of token type : token cost
         # Further additions can be added with item.tokens[tokentype] = tokencost
@@ -56,8 +56,9 @@ def parsedata(http, itemlist):
             index += 1
 
     # Final API query and itemlist update
-    serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
-    updateitemlist(serv_api_req, itemlist)
+    if querystring != "":
+        serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
+        updateitemlist(serv_api_req, itemlist)
 
 # API query to Universalis
 def getuniversalisdata(http, querystring, servdc):
@@ -92,7 +93,7 @@ def main():
                     else:
                         # Brand-new item, create object and store in itemlist
                         itemlist[row['Item ID']] = TokenItem(row['Item Name'], int(row['Item ID']),
-                                                             int(row['Token Cost']), row['Token Type'], 1)
+                                                             float(row['Token Cost']), row['Token Type'], 1)
                 parsedata(http, itemlist)
                 # Safety measure to keep from reaching Universalis' API limits
                 time.sleep(1)
