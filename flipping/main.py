@@ -6,6 +6,7 @@ import csv
 # Global Variables
 itemApi = "https://universalis.app/api/v2"
 mainWorldId = "73" # Adamantoise - update to your home server
+dc = "Aether"
 region = "North-America"
 # Placed at a global scope because I'm lazy
 itemlist = {}
@@ -57,10 +58,11 @@ def parsedata(http):
             index += 1
 
     # Final API query and itemlist update
-    dc_api_req = getuniversalisdata(http, querystring, dc)
-    serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
-    updateitemlist(dc_api_req,"dc")
-    updateitemlist(serv_api_req,"server")
+    if querystring != "":
+        dc_api_req = getuniversalisdata(http, querystring, dc)
+        serv_api_req = getuniversalisdata(http, querystring, mainWorldId)
+        updateitemlist(dc_api_req,"dc")
+        updateitemlist(serv_api_req,"server")
 
 # API query to Universalis
 def getuniversalisdata(http, querystring, servdc):
